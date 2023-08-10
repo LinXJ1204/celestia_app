@@ -38,7 +38,7 @@ func httpserver() {
 	handler.HandleFunc("/submit", a_HandleFunc_submit(ctx))
 	handler.HandleFunc("/get", a_HandleFunc_get(ctx))
 	// Replace "http://localhost:8080" with the actual URL of your frontend application
-	allowedOrigins := []string{"http://localhost:3000", "http://172.24.190.128:3000"}
+	allowedOrigins := []string{"http://localhost:3000", "http://34.222.228.215:3000"}
 
 	// CORS configuration
 	corsMiddleware := cors.New(cors.Options{

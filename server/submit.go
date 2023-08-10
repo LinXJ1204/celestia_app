@@ -18,7 +18,7 @@ func Submit(arr []byte, name string) interface{} {
 	defer cancel()
 
 	url := "127.0.0.1:26658"
-	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBbGxvdyI6WyJwdWJsaWMiLCJyZWFkIiwid3JpdGUiLCJhZG1pbiJdfQ.rQUXHwVHoTT0rZL9ONaZSF6VBzJtoVR1MLMe5Z6grr8"
+	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBbGxvdyI6WyJwdWJsaWMiLCJyZWFkIiwid3JpdGUiLCJhZG1pbiJdfQ.luZsE4xYLt1nSzpWZvlrdLdVc53cM-ub41NcVuNlXWU"
 	fmt.Println(token)
 
 	var (

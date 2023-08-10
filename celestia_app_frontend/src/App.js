@@ -8,13 +8,14 @@ function App() {
         <div className="content">
         <form name='submitform' action='#'>
           <div className="topic">Submit Photo</div>
-          <input type="file" /><br />
+          <input type="file" accept=".jpg" /><br />
           <div className="input-box">
             <input className="input-namespace" type="text" required />
             <label>namespace</label>
           </div>
           <div className="input-box">
             <div className='submitresult'></div>
+            <div className='submitresult_txhash'></div>
           </div>
           <div className="input-box">
             <input type="submit" value="Submit" onClick={previewFile}/>

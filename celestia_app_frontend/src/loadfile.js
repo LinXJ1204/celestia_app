@@ -1,9 +1,14 @@
 //replace with your own backend server ip
-const ip = "http://172.24.190.128:9453"
+const ip = "http://34.222.228.215:9453"
 
 export async function previewFile() {
     var file    = document.querySelector('input[type=file]').files[0];
+    var fileSize = document.querySelector('input[type=file]').files[0].size;
     var reader  = new FileReader();
+    if(fileSize>512000){
+      alert("file size must less than 50KB!")
+      return
+    }
 
     var namespace = String(document.getElementsByClassName("input-namespace")[0].value)
 
@@ -21,7 +26,8 @@ export async function previewFile() {
         console.log(res.blockheight)
         console.log(res.tx_hash)
         //download link create
-        document.getElementsByClassName("submitresult")[0].innerText = "Blockheight: "+res.blockheight+"  Tx_hash: "+res.tx_hash
+        document.getElementsByClassName("submitresult")[0].innerText = "Blockheight: "+res.blockheight;
+        document.getElementsByClassName("submitresult_txhash")[0].innerText ="Tx_hash: "+res.tx_hash;
       };
     }
     
@@ -30,22 +36,29 @@ export async function previewFile() {
 export async function get_handler(){
   var namespace = String(document.getElementsByClassName("get-namespace")[0].value)
   var height = (document.getElementsByClassName("get-blockheight")[0].value)
-  var res = await get_data(namespace, height).then(res=>{return res.json()})
-  const blobData = atob(res.Blob);
-  // Create a Blob object from the Base64-decoded data
-  var reader  = new FileReader();
-  const blob = new Blob([new Uint8Array([...blobData].map(char => char.charCodeAt(0)))], { type: 'application/octet-stream' });
-  console.log(blob)
-  reader.readAsArrayBuffer(blob);
-    reader.onload = async function () {
-      var data = reader.result;
-      var buffer = data;
-      var view = new Uint8Array(buffer);
-      var preview = document.querySelector('img');
-      console.log(view)
-      preview.src = 'data:image/jpg;base64,' + tobase64encode(view);
-      
+  if (height && namespace!==""){
+    var res = await get_data(namespace, height).then(res=>{return res.json()})
+    if(res===undefined){
+      alert("Wrong Namespace or Blockheight!")
+      return
     }
+    const blobData = atob(res.Blob);
+    // Create a Blob object from the Base64-decoded data
+    var reader  = new FileReader();
+    const blob = new Blob([new Uint8Array([...blobData].map(char => char.charCodeAt(0)))], { type: 'application/octet-stream' });
+    console.log(blob)
+    reader.readAsArrayBuffer(blob);
+      reader.onload = async function () {
+        var data = reader.result;
+        var buffer = data;
+        var view = new Uint8Array(buffer);
+        var preview = document.querySelector('img');
+        console.log(view)
+        preview.src = 'data:image/jpg;base64,' + tobase64encode(view);
+        
+      }
+  }
+  
 }
 
 const sendtoserver = (bytearray, name) => {
@@ -53,7 +66,7 @@ const sendtoserver = (bytearray, name) => {
     const formData = new FormData();
     formData.append("arr", new Blob([bytearray], {type : ''}));
     formData.append("name", name);
-    fetch(ip + "/submit", {
+    fetch(ip+"/submit", {
       method: 'POST',
       body: formData
   }).then(res=>{resolve(res)})
@@ -65,7 +78,7 @@ const get_data = (name, height) => {
     const formData = new FormData();
     formData.append("height", height);
     formData.append("name", name);
-    fetch(ip + "/get", {
+    fetch(ip+"/get", {
       method: 'POST',
       body: formData
   }).then(res=>{resolve(res)})

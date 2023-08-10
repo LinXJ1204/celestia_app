@@ -15,7 +15,7 @@ func Get(name string, blockheight uint64) []byte {
 
 	url := "127.0.0.1:26658"
 
-	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBbGxvdyI6WyJwdWJsaWMiLCJyZWFkIiwid3JpdGUiLCJhZG1pbiJdfQ.rQUXHwVHoTT0rZL9ONaZSF6VBzJtoVR1MLMe5Z6grr8"
+	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBbGxvdyI6WyJwdWJsaWMiLCJyZWFkIiwid3JpdGUiLCJhZG1pbiJdfQ.luZsE4xYLt1nSzpWZvlrdLdVc53cM-ub41NcVuNlXWU"
 
 	var (
 		rpcClient *client.Client
